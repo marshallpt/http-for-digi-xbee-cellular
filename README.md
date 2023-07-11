@@ -1,10 +1,11 @@
-# HTTP For Digi XBee
-Archive of my HTTP requests implementation for the Digi XBee Cellular Modem to 
-interface with Google Sheets. This was written for my senior capstone project, JAMES2.
- It took 
-a lot of trial and error to figure a lot of this out, it was difficult finding any 
-example code online. Hopefully by archiving this here, it can save someone else save
-time later.
+# HTTP / Google Sheets For Digi XBee Cellular
+Archive of my HTTP requests implementation for the 
+[Digi XBee Cellular Modem](https://www.digi.com/products/models/xk3-c-a2-t-ub) to 
+interface with Google Sheets. This was written for my senior capstone project, 
+[JAMES2.](https://drive.google.com/file/d/1XdHSq_d-kd0wOfchhkvFJ0ObRg7Xfi57/view)
+ It took a lot of trial and error to figure a lot of this out, as it was difficult 
+ finding example code online. Hopefully by archiving this here, it can save 
+ someone else time in the future.
 
 # Background
 Utilizing the Digi XBee Cellular with HTTP requests was inspired by 
@@ -12,36 +13,40 @@ Utilizing the Digi XBee Cellular with HTTP requests was inspired by
 on the Digi documentation. I learned how to form my own HTTP requests using 
 [this wonderful website](https://reqbin.com/req/nfilsyk5/get-request-example).
 I've never utilized Google APIs before, so it took a good amount of digging to
-find an auth type that worked for a fully autonomous modality. I finally landed on OAuth2 through a [service account authenticated via HTTP-REST.](https://developers.google.com/identity/protocols/oauth2/service-account#httprest) 
-As described below, this requires a service account be created in Google Cloud Console
-and for it to be added as a collaborator onto the Google Sheets spreadsheet that is
-being accessed, in the same way you'd share a Google Sheets spreadsheet with anyone 
-else. Once that service account is created, one downloads the credentials for it in
-a .JSON format for **CellularSpreadsheet()** class to consume and you're off to the
-races.
+find an auth type that worked for a fully autonomous modality. 
+I finally landed on OAuth2 through a 
+[service account authenticated via HTTP-REST.](https://developers.google.com/identity/protocols/oauth2/service-account#httprest) 
 
 # Usage
+## Dependencies
 To install the dependencies, in your virtual environment, run:
 
 `pip install -r requirements.txt`
 
-The various communications protocols have their own authentication requirements. Be sure
-to check the appropriate section below for utilizing those.
-
-# Classes
-## HTTPCellular()
-Adds HTTP features to *digi-xbee*'s CellularModem() class. On linux, 
+## Classes
+### HTTPCellular()
+Adds HTTP features to *digi-xbee*'s **CellularModem()** class. On linux, 
 requires user to be a part of the *dialout* group to access the USB 
-ports. To do  so, use the following command (found from 
+ports. To do  so, use the following command (found 
 [here](https://meshtastic.discourse.group/t/question-on-permission-denied-dev-ttyusb0/590/7)):
 
 `sudo usermod -a -G dialout <username>`
 
 After performing this command, log out and back in.
 
-## CellularSpreadsheet()
+### CellularSpreadsheet()
 Utilizes **HTTPCellular()** to update a Google Spreadsheet via 
 [REST requests](https://developers.google.com/sheets/api/reference/rest). 
 *main()* shows an example of it in action. 
-**Requires a `service_account.json` file** in the root of the directory. This must be generated from
-the Google Cloud console. This service account **must be added with edit access to the spreadsheet being edited**, as well.
+**Requires `service_account.json`** to authenticate with Google. To get these credentials:
+
+1. [Create a Google Cloud project](https://developers.google.com/workspace/guides/create-project).
+2. [Create a Service Account](https://developers.google.com/identity/protocols/oauth2/service-account#creatinganaccount)
+ within that project.
+3. Create and download a service account key (instructions for which are in the link for #2).
+4. Rename the .json file to `service_account.json`.
+5. Place `service_account.json` in the same directory as `cellular.py`.
+
+Once the service account is created and credentials are downloaded, it 
+**must be added with edit access to the spreadsheet being edited**, as well.
+ This is done in the same way as sharing a spreadsheet with any other user.
