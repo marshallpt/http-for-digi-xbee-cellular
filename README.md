@@ -50,3 +50,48 @@ Utilizes **HTTPCellular()** to update a Google Spreadsheet via
 Once the service account is created and credentials are downloaded, it 
 **must be added with edit access to the spreadsheet being edited**, as well.
  This is done in the same way as sharing a spreadsheet with any other user.
+
+# Examples
+## Performing GET request
+Doing the same GET request as described in the 
+[Digi tutorial](https://www.digi.com/resources/documentation/Digidocs/90002253/Tasks/t_get_http.htm?tocpath=XBee%20connection%20examples%7C_____5) 
+referenced previously.
+```python
+http_device = HTTPCellular(timeout=10)
+url = "https://httpbin.org/ip"
+r, num_attempts = http_device.send_request(method="GET", 
+                                           url=url)
+print(r)
+```
+## Performing POST request
+Performing a POST request, as can be seen in the *append()* method of the 
+**CellularSpreadsheet()** class.
+```python
+http_device = HTTPCellular(timeout=10)
+url = "https://example.website"
+token = "your-token-here"
+headers = {"Authorization": f"Bearer {token}"}
+data = {
+    "james2": "rocks"
+}
+
+r, num_attempts = http_device.send_request(method="POST", 
+                                           data=data,
+                                           url=url,
+                                           headers=headers)
+print(r)
+```
+## Appending a spreadsheet and printing its contents
+As seen in *main()* of `cellular.py`.
+```python
+spreadsheet_id = "your-speadsheet-id-here"
+spreadsheet = CellularSpreadsheet(spreadsheet_id=spreadsheet_id)
+
+print("Updating spreadsheet...")
+# values NEEDS TO BE A 2D ARRAY.
+print(spreadsheet.append(values=[["james2", "rocks"]],range="A5:B5"))
+
+# We don't need this for JAMES2 - this was just for testing / completeness
+print("Getting the whole spreadsheet...")
+print(spreadsheet.get())
+```
