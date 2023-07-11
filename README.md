@@ -2,10 +2,9 @@
 Archive of my HTTP requests implementation for the 
 [Digi XBee Cellular Modem](https://www.digi.com/products/models/xk3-c-a2-t-ub) to 
 interface with Google Sheets. This was written for my senior capstone project, 
-[JAMES2.](https://drive.google.com/file/d/1XdHSq_d-kd0wOfchhkvFJ0ObRg7Xfi57/view)
- It took a lot of trial and error to figure a lot of this out, as it was difficult 
- finding example code online. Hopefully by archiving this here, it can save 
- someone else time in the future.
+[JAMES2](https://drive.google.com/file/d/1XdHSq_d-kd0wOfchhkvFJ0ObRg7Xfi57/view):
+an autonomous river drifter. It took a lot of trial and error to figure a lot of this out, as it was difficult finding example code online. Hopefully by archiving this publicly, it can assist others in the future.
+
 
 # Background
 Utilizing the Digi XBee Cellular with HTTP requests was inspired by 
@@ -17,6 +16,11 @@ find an auth type that worked for a fully autonomous modality.
 I finally landed on OAuth2 through a 
 [service account authenticated via HTTP-REST.](https://developers.google.com/identity/protocols/oauth2/service-account#httprest) 
 
+For **HTTPCellular()**, I tended to to replicate the interface of the 
+[Python Requests library](https://docs.python-requests.org/en/latest/) 
+when possible, as this is the HTTP requests library I'm the most familiar with.
+This can be seen in *send_request()* where `data`, `params`, and `headers` are parameters passed as dictionaries, similar to Python Requests. 
+
 # Usage
 ## Dependencies
 To install the dependencies, in your virtual environment, run:
@@ -25,8 +29,9 @@ To install the dependencies, in your virtual environment, run:
 
 ## Classes
 ### HTTPCellular()
-Adds HTTP features to *digi-xbee*'s **CellularModem()** class. On linux, 
-requires user to be a part of the *dialout* group to access the USB 
+Adds HTTP features to *digi-xbee*'s 
+[**CellularModem()**](https://xbplib.readthedocs.io/en/latest/api/digi.xbee.devices.html#digi.xbee.devices.CellularDevice)
+class. On linux, requires user to be a part of the *dialout* group to access the USB 
 ports. To do  so, use the following command (found 
 [here](https://meshtastic.discourse.group/t/question-on-permission-denied-dev-ttyusb0/590/7)):
 
@@ -52,7 +57,7 @@ Once the service account is created and credentials are downloaded, it
  This is done in the same way as sharing a spreadsheet with any other user.
 
 # Examples
-## Performing GET request
+## Performing a GET request
 Doing the same GET request as described in the 
 [Digi tutorial](https://www.digi.com/resources/documentation/Digidocs/90002253/Tasks/t_get_http.htm?tocpath=XBee%20connection%20examples%7C_____5) 
 referenced previously.
@@ -63,7 +68,7 @@ r, num_attempts = http_device.send_request(method="GET",
                                            url=url)
 print(r)
 ```
-## Performing POST request
+## Performing a POST request
 Performing a POST request, as can be seen in the *append()* method of the 
 **CellularSpreadsheet()** class.
 ```python
