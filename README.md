@@ -96,7 +96,7 @@ Example POST request with [Bearer Authentication](https://swagger.io/docs/specif
 Appending `james2`,`rocks` to the cells `A5`,`B5` of a spreadsheet and then printing the entirety of 
 the spreadsheet.
 ```python
-spreadsheet_id = "your-speadsheet-id-here"
+spreadsheet_id = "your-spreadsheet-id-here"
 spreadsheet = CellularSpreadsheet(spreadsheet_id=spreadsheet_id)
 
 print("Updating spreadsheet...")
