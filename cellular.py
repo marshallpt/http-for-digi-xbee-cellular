@@ -311,7 +311,7 @@ class CellularSpreadsheet():
             self.token = self._init_auth()
 
 def main():
-    spreadsheet_id = "your-speadsheet-id-here"
+    spreadsheet_id = "your-spreadsheet-id-here"
     spreadsheet = CellularSpreadsheet(spreadsheet_id=spreadsheet_id)
     
     print("Updating spreadsheet...")
