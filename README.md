@@ -60,10 +60,8 @@ Once the service account is created and credentials are downloaded, it
  [sharing a spreadsheet with any other user.](https://support.google.com/docs/answer/9331169?hl=en#6.1)
 
 # Examples
-## Performing a GET request
-Doing the same GET request as described in the 
-[Digi tutorial](https://www.digi.com/resources/documentation/Digidocs/90002253/Tasks/t_get_http.htm?tocpath=XBee%20connection%20examples%7C_____5) 
-referenced previously.
+## GET request
+Performing a GET request and printing the response.
 ```python
 http_device = HTTPCellular(timeout=10)
 url = "https://httpbin.org/ip"
@@ -71,9 +69,11 @@ r, num_attempts = http_device.send_request(method="GET",
                                            url=url)
 print(r)
 ```
-## Performing a POST request
-Performing a POST request, as can be seen in the *append()* method of the 
-**CellularSpreadsheet()** class.
+This is the same GET request as seen in the previously-referenced 
+[Digi tutorial](https://www.digi.com/resources/documentation/Digidocs/90002253/Tasks/t_get_http.htm?tocpath=XBee%20connection%20examples%7C_____5),
+ shown for comparison.
+## POST request
+Performing a POST request and printing the response.
 ```python
 http_device = HTTPCellular(timeout=10)
 url = "https://example.website"
@@ -89,8 +89,12 @@ r, num_attempts = http_device.send_request(method="POST",
                                            headers=headers)
 print(r)
 ```
-## Appending a spreadsheet and printing its contents
-As seen in *main()* of `cellular.py`.
+Example POST request with [Bearer Authentication](https://swagger.io/docs/specification/authentication/bearer-authentication/)
+ and body data.
+
+## Appending a Google Sheets spreadsheet
+Appending `james2`,`rocks` to the cells `A5`,`B5` of a spreadsheet and then printing the entirety of 
+the spreadsheet.
 ```python
 spreadsheet_id = "your-speadsheet-id-here"
 spreadsheet = CellularSpreadsheet(spreadsheet_id=spreadsheet_id)
@@ -103,3 +107,4 @@ print(spreadsheet.append(values=[["james2", "rocks"]],range="A5:B5"))
 print("Getting the whole spreadsheet...")
 print(spreadsheet.get())
 ```
+As seen in *main()* of `cellular.py`.
