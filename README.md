@@ -1,7 +1,9 @@
 # HTTP / Google Sheets For Digi XBee Cellular
 Archive of my HTTP requests implementation for the 
 [Digi XBee Cellular Modem](https://www.digi.com/products/models/xk3-c-a2-t-ub) to 
-interface with Google Sheets. This was written for my senior capstone project, 
+interface with Google Sheets, utilizing 
+[Digi's XBee Python library](https://github.com/digidotcom/xbee-python).
+This was written for my senior capstone project, 
 [JAMES2](https://drive.google.com/file/d/1XdHSq_d-kd0wOfchhkvFJ0ObRg7Xfi57/view):
 an autonomous river drifter. It took a lot of trial and error to figure a lot of this out, as it was difficult finding example code online. Hopefully by archiving this publicly, it can assist others in the future.
 
@@ -54,7 +56,8 @@ Utilizes **HTTPCellular()** to update a Google Spreadsheet via
 
 Once the service account is created and credentials are downloaded, it 
 **must be added with edit access to the spreadsheet being edited**, as well.
- This is done in the same way as sharing a spreadsheet with any other user.
+ This is done in the same way as 
+ [sharing a spreadsheet with any other user.](https://support.google.com/docs/answer/9331169?hl=en#6.1)
 
 # Examples
 ## Performing a GET request
